@@ -22,6 +22,7 @@ Bonus.srv - This service is made for the bonus question which calls one of the a
 Files:
 ------
 For question 1, the files required are calculate_server.py and calculate_client.py which are the server and client for the question.
+Format of writing argument : float num1 float num2 string (add/subtract/multiply/divide/modulo/power)
 
 For the bonus question files required are bonus_server.py, bonus_client.py, calculate_client.py and calculate2_client.py
 
