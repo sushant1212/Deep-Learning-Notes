@@ -1,0 +1,8 @@
+prefix=/home/sushant/qstp_kratos_ws/devel
+
+Name: electronics
+Description: Description of electronics
+Version: 0.0.0
+Cflags: -I/home/sushant/qstp_kratos_ws/devel/include
+Libs: -L${prefix}/lib 
+Requires: 
