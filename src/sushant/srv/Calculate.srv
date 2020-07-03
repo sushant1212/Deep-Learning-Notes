@@ -1,5 +1,0 @@
-float32 a
-float32 b
-string op
----
-float32 res
