@@ -1,6 +1,6 @@
-#RL Lecture 1 Standford CS234
+# RL Lecture 1 Standford CS234
 
-##Introduction:
+## Introduction:
 
 * Agent acts on the world, receives an observation and a reward from the world.
 * Designer gets to pick what the reward function is.
@@ -29,8 +29,8 @@ Actions influence future observations. For example suggesting a product to a cus
 1. Deterministic: Given history and action, single observation and reward 
 2. Stochastic: Given history and action, many potential observations and rewards.
 
-##RL Algorithm Components:
-###Model:<br>
+## RL Algorithm Components:
+## Model:<br>
 * Agent's representation of hpw the world changes in response to agent's actions.<br>
 * Transition model predicts the agent's next state:<br>
 <b>P(st+1 = s' | st=s, at=a)<br></b>
@@ -38,29 +38,29 @@ Actions influence future observations. For example suggesting a product to a cus
 r(st=s, at=a) = E(rt | st=s, at=a)
 <br><b>The model of the agent can be wrong</b><br>
 
-###Policy:
+### Policy:
 * Policy 'pi' determines how the agent chooses actions. It is a MAPPING from States -> Actions
 * A deterministic policy gives just one action as the output. pi(s) = a
 * Stochastic policy : A distribution of probabilities for each action given a state. Mathematically, <br>
 pi(a|s) = Pr(at=a | st=s)
 
-###Value:
+### Value:
 Value function Vpi: expected discounted sum of future rewards under a particular policy pi.<br>
 Vpi(st=s) = E_pi[rt + gamma*rt+1 + gamma^2*rt+2+....... | st=s]<br>
 Discount factor gamma weighs immediate vs future rewards. gamma belongs to (0,1)<br>
 Can be used to quantify goodness/badness of states and actions and decide how to act by comparing policies.
 
-##Types of RL agents:
+## Types of RL agents:
 * Model-based:<br>
 Explicit: Model, may or may nothave policy and/or value function
 * Model-free:<br>
 Explicit: Value function and/or policy function, No model
 
-##Exploration and Exploitation:
+## Exploration and Exploitation:
 Just as the name suggests.
 
-##Evaluation:
+## Evaluation:
 * Estimate/predict the expected rewards from following a given policy
 
-##Control:
+## Control:
 * Optimization: find the best policy
