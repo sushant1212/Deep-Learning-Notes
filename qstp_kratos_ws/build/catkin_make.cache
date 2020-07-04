@@ -1,2 +1,0 @@
-electronics:sushant
--DCATKIN_DEVEL_PREFIX=/home/sushant/qstp_kratos_ws/devel -DCMAKE_INSTALL_PREFIX=/home/sushant/qstp_kratos_ws/install -G Unix Makefiles

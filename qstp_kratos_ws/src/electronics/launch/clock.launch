@@ -1,7 +1,0 @@
-<launch>
-	<node name="seconds_publisher" pkg="electronics" type="seconds.py" />
-	<node name="minutes_publisher" pkg="electronics" type="minutes.py" />
-	<node name="hour_publisher" pkg="electronics" type="hour.py" />
-	<node name="clock" pkg="electronics" type="clock.py" />
-	<node name="show_time" pkg="electronics" type="showtime.py" output="screen" />
-</launch>

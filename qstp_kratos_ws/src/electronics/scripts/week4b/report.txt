@@ -1,8 +1,0 @@
-Week3:
-I had the opportunity to look through what different teams who have participated in URC have done. It was amazing to see their complex ways to come out with rovers.
-
-I have also learnt writing publishers and subscribers, creating a custom ros message.
-
-Week4:
-I learnt about the kinematics of differential drive robots and also was able to understand principles of the PID controller. It was a good experience to implement the PID controller on the turtlebot in gazebo simulator.
-I also learnt about the tf library in ros. I also learn about forward and inverse kinematics for tackling coordinates in different coordinate frames.
