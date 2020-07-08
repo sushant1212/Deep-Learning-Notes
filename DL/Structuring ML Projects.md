@@ -8,8 +8,8 @@
 
 * It is important to have a single real number evaluation metric to differentiate between good and bad algorithms. By just seeing this metric we would be easily able to tell one algorithm is better than the rest.
 * The real number metric is divided into two parts, optimizing metric and satisficing metric.
- * Satisficing metrics are conditions which your algorithm should satisfies
- * Optimizing metrics are metrics which you use to differentiate different algorithms which satisfy the satisficing metric.
+ 1. Satisficing metrics are conditions which your algorithm should satisfies
+ 2. Optimizing metrics are metrics which you use to differentiate different algorithms which satisfy the satisficing metric.
 
 * <b>Dev and test sets need to come from the same disrtibution.</b><br>
 This is important since making your model perform better on dev set is like getting closer to the bull's eye on the target. Now when you go to the test set, you don't want your bull's eye to shift... Andrew has seen many machine learning teams spend months and then realize that their dev and test sets were from different distributions. Example : dev set is of whether loan has been accepted or rejected for middle class families and test set comprises of people from the lower income families...... This is a really bad way of organizing test and dev sets.
@@ -32,9 +32,9 @@ Now you can change this metric as 1/summation(wi) * (wi * yhat != y) where wi = 
 * The highest possible performance which is theoretical is called the <b>Bayesian optimal error</b>.
 * Most ML algorithms have a steep slope till it achieves human level performance but then this slope goes down as the algorithm approaches Bayes error.
 * As long as ML algorithm is worse than humans:
- * Get labeled data from humans
- * Gain insight from manual error analysis: Why did a person get this right?
- * Better analysis of bias/variance
+ 1. Get labeled data from humans
+ 2. Gain insight from manual error analysis: Why did a person get this right?
+ 3. Better analysis of bias/variance
 
 ### Human level performance as a proxy for Bayesian error:
 * Humans are really good at many tasks and thus the human level error can be approximately considered as the Bayesian error.
@@ -61,8 +61,8 @@ Now you can change this metric as 1/summation(wi) * (wi * yhat != y) where wi = 
 * The training set may comprise of both user uploaded images and images downloaded from the internet. Even though they are not from the same distribution, it works well.
 <br>
 * When the training set and the dev/test set have diffferent distributions, then the difference in the train error and the dev set error is not necessarily the measure of the variance. This may comprise of two reasons :
- * Variance
- * Data Mismatch
+ 1. Variance
+ 2. Data Mismatch
 * To handle this difference what we can do is we can divide the training set into the train set and a small portion of the train set as the training-dev set over which we won't train on. The training-dev set has the same disribution as the train set. The difference between the train set error and the training dev set error is the variance, while the difference between the dev set and the training dev set is the <b>data mismatch</b>.
 
 * <b>Sometimes the dev set error and the test set error maybe different by quite a lot. This means that you've overfit to your dev set. To rectify this you have to increase the dev set size in order to generalize.</b>
@@ -150,9 +150,9 @@ Transfer Learning from Task A to Task B is meaningful when:<br>
 * Instead of doing the work in parts directly training a NN to take you form start to the end.
 * This is usually done <u>ONLY</u> when you have a large amount of data.
 * Pros:
-- Lets the data speak.
-- Less hand-designing of components needed
+1. Lets the data speak.
+2. Less hand-designing of components needed
 
 * Cons:
- * May need a large amount of data
- * Excludes pootentially useful hand designed components
+ 1. May need a large amount of data
+ 2. Excludes potentially useful hand designed components
