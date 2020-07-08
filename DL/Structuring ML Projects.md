@@ -150,8 +150,8 @@ Transfer Learning from Task A to Task B is meaningful when:<br>
 * Instead of doing the work in parts directly training a NN to take you form start to the end.
 * This is usually done <u>ONLY</u> when you have a large amount of data.
 * Pros:
- * Lets the data speak.
- * Less hand-designing of components needed
+- Lets the data speak.
+- Less hand-designing of components needed
 
 * Cons:
  * May need a large amount of data
