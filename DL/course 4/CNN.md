@@ -55,4 +55,4 @@ To fix both of these problems we can **pad** the images by an additional layer o
 * Image is suppose 7x7x**3** then, the filter is 3x3x**3**
 * One filter gives one output layer. Hence number of filters will determine the number of channels of the output layer.
 * nxnxnc * (fxfxnc) x nc' =  floor((n+2p-f)/s + 1) x floor((n+2p-f)/s + 1) x nc'
-![Notation](notaation.png)
+![Notation](notation.png)
