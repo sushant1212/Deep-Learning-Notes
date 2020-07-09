@@ -58,4 +58,4 @@ To fix both of these problems we can **pad** the images by an additional layer o
 **Notation**  
 <br>
 
-![Notation](notation.png)
+!(notation.png)
