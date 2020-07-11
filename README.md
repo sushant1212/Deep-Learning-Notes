@@ -1,2 +1,2 @@
 # supreme-journey
-This repo is to store my progress to achieve my goals.
+This repository is my journey to AI
