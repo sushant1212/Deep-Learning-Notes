@@ -87,7 +87,7 @@ CONV(1 or 2), POOL, CONV(1 or 2), POOL, FC, FC, FC, Softmax.
 * Similar to the fact that when we get an implementation of a code we try to look at the code and understand the implementation, similarly for ConvNets, the typical architecture and the popular implementations of CNNs tend to work in various domains. Hence it is useful to look at such implementations.
 
 ## Some popular ConvNet architectures:
-* [LeNet-5](https://ieeexplore.ieee.org/abstract/document/726791/)
+* [LeNet-5](http://www.academia.edu/download/61181394/Gradient_Based_Learning_Lecun20191110-2628-k1dtd1.pdf)
 
 ![LeNet-5](LeNet-5.png)
 
