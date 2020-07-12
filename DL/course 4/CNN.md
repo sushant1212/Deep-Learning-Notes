@@ -100,3 +100,81 @@ CONV(1 or 2), POOL, CONV(1 or 2), POOL, FC, FC, FC, Softmax.
 * [VGG-16](https://arxiv.org/pdf/1409.1556.pdf%20http://arxiv.org/abs/1409.1556)
 
 ![VGG-16](VGG-16.png)
+
+* [Resnet](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjw9Z6i4cbqAhWDF3IKHY01Bz0QFjABegQIAhAB&url=https%3A%2F%2Farxiv.org%2Fpdf%2F1512.03385&usg=AOvVaw3vV99r-Ks0UEPt0ndF0YoP)
+
+<ul>
+	<li>When training deep networks due to the problem of vanishing/exploding gradients, training becomes more and more difficult.</li>
+	<li>To overcome this problem, Resnets were designed. Resnets stand for 'Residual Networks'. </li>
+	<li>Residual block is as described in the slide below.r</li>
+	<li>ResNets have a better graph of training error vs no.of layers as compared to the "plain" networks. </li>
+</ul>
+
+![ResNet](ResNet.png)
+
+## Why do Resnets work better?
+* Due to the g(W[l+2]a[l+1] + b[l+2] + a[l]). If we use L2 regularization, W tends to decay(weight decay). Let's assume that the weight and bias are 0. Hence ReLU of a[l] = a[l]. Hence this is like an identity function. The hidden units may learn something useful or just learn the identity function to not hurt the performance. 
+* The problem with the plain NNs is that it is actually quite difficult to learn the identity function as compared to the ease due to the skip connections.
+* <b>Note that in the residual block, the layer which is undergoing skip connection should have the same dimensiona as the layer which it is being added to. If the dimensions are different, then either we can have a matrix Ws multiplied by a[l] to correct the dimensions or by zero-padding a[l] to match the dimensions.</b>
+
+
+
+## 1x1 Convolutions:  
+[Network in Network](https://arxiv.org/pdf/1312.4400.pdf%20http://arxiv.org/abs/1312.4400)
+
+
+* In 2D 1x1 convolution does not make much sense because it is just like multiplying by a constant number.
+* In 3D is found to be quite useful tool to add a bit of non linearity to the model, In the figure shown below, **after convolving the filter  a ReLU activation is applied**. It is similar to a fully connected layer. It is like multiplying a 32 dimensional vector with a 32 dimensional row vector and applying ReLU to get the output. The number of rows of the weights is the number of filters.
+* Also called network in network. 
+
+![1x1](1x1.png)
+
+### Using 1x1 convolutions:
+* We can use it to shrink the number of channels.
+* Adds non-linearity
+* Useful for building the 'inception network'.
+
+
+## Inception Network Motivation
+* [Inception Networks](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwjm6oXCi8fqAhUCeisKHf4UAtgQFjACegQIBhAB&url=https%3A%2F%2Farxiv.org%2Fpdf%2F1409.4842&usg=AOvVaw3v1ON5KCX99lZhuMLtNROq)
+
+* For convnets, instead of deciding whether to use a 3x3 filter or 5x5 filter or a pooling layer, just use all of them and concatenate all of them into one final layer.
+* <b>Note here each of the operation must give a same height and depth which also means that for pooling operation we have to use padding also which is quite weird.</b>
+* The problem that arises due to the above method is that it becomes computationally more expensive.
+* To overcome this we use the '**bottleneck operation**' where we convert the initial matrix into a smaller one. For example convert the 28x28x192 to a 28x28x16 using a 1x1 conv.
+* Then operate on the various options and concatenate the results. This reduces the number of multiplication by 10 folds.
+
+
+## Implementing 
+* In order to implement the code, downloading open source codes and the weights form GitHub is considered as the best practice and then implement transfer learning.
+
+* For implementing transfer learning, one may change the weights of the last layer, a last few layers or the entire weights 
+
+### Data Augumentatiom:
+* Mirroring
+* Random Cropping - isn't a perfect method but works well
+* Rotation*
+* Shearing*
+* Local Warping*
+* Color Shifting  
+* PCA color augumentation : used in AlexNet paper.
+
+## To achieve benchmarks and do well in computer vision competitions
+* Ensambling : To average out the outputs from several trained neural networks
+* Multi crop at test time
+
+
+## Small note on how to read research papers:
+* Do <u>NOT</u> read from the first word till the last word.
+* Take multiple passes.
+1. Title/Abstract/figures
+2. Introduction + Conclusion + Figures + skim rest (skip related works)
+3. Read but skip/skim the math
+4. Whole thing but skip parts that don't make sense
+5. Now try and understand the parts which didn't make sense.
+
+### Questions to keep in mind while reading a paper:
+* What did the authors try to accomplish?
+* What were the key elements of the approach?
+* What can you use yourself?
+* What other reference do you want to follow?
