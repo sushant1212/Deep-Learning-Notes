@@ -139,7 +139,7 @@ CONV(1 or 2), POOL, CONV(1 or 2), POOL, FC, FC, FC, Softmax.
 * [Inception Networks](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwjm6oXCi8fqAhUCeisKHf4UAtgQFjACegQIBhAB&url=https%3A%2F%2Farxiv.org%2Fpdf%2F1409.4842&usg=AOvVaw3v1ON5KCX99lZhuMLtNROq)
 
 * For convnets, instead of deciding whether to use a 3x3 filter or 5x5 filter or a pooling layer, just use all of them and concatenate all of them into one final layer.
-* <b>Note here each of the operation must give a same height and depth which also means that for pooling operation we have to use padding also which is quite weird.</b>
+* <b>Note here each of the operation must give a same height and width which also means that for pooling operation we have to use padding also which is quite weird.</b>
 * The problem that arises due to the above method is that it becomes computationally more expensive.
 * To overcome this we use the '**bottleneck operation**' where we convert the initial matrix into a smaller one. For example convert the 28x28x192 to a 28x28x16 using a 1x1 conv.
 * Then operate on the various options and concatenate the results. This reduces the number of multiplication by 10 folds.
