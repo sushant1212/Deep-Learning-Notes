@@ -150,17 +150,17 @@ CONV(1 or 2), POOL, CONV(1 or 2), POOL, FC, FC, FC, Softmax.
 
 * For implementing transfer learning, one may change the weights of the last layer, a last few layers or the entire weights 
 
-### Data Augumentatiom:
+### Data Augmentatiom:
 * Mirroring
 * Random Cropping - isn't a perfect method but works well
 * Rotation*
 * Shearing*
 * Local Warping*
 * Color Shifting  
-* PCA color augumentation : used in AlexNet paper.
+* PCA color augmentation : used in AlexNet paper.
 
 ## To achieve benchmarks and do well in computer vision competitions
-* Ensambling : To average out the outputs from several trained neural networks
+* Ensembling : To average out the outputs from several trained neural networks
 * Multi crop at test time
 
 
