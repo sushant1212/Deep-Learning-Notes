@@ -178,3 +178,69 @@ CONV(1 or 2), POOL, CONV(1 or 2), POOL, FC, FC, FC, Softmax.
 * What were the key elements of the approach?
 * What can you use yourself?
 * What other reference do you want to follow?
+
+
+## Object detection with Localization:
+* To detect a bounding box as well as classify the image. 
+* Represeantation of bounding box: (bx, by, bw, bh)  
+(bx,by) : coordinates of the center of the bounding box  
+bh, bw : Height and width of the bounding box
+
+### Defining the target label y:
+* y = [pc bx by bh bw c1 c2 ..... cn].T 
+* pc : is the probability that there is an object in the image. **If the value of pc is 0 then the other parameters of y are "Don't Cares"**
+* c1....cn are the output of softmax classifier for n classes.
+* Cost function:  
+1. We can have a mean squared error for the all the components of y.
+2. Another better alternative is to keep only the bounding box parameters to have mean squared error while the pc term could have a logistic loss function and the ci terms could have a log likelihood loss for the softmax terms.
+
+## Landmark Detection:
+* If we have to detect certain landmarks from the face of a person then, what we can do is keep the first value of the output vector as probability whether the person is there or not and then have two output units for the x and y coordinates for each of the landmarks to be detected. 
+
+## Object Detection:
+* First train a conv net to classify whether or not there is the object of interest like a car say.
+
+### Sliding windows method
+* Now take a small window and move it along the image and then for each position of the image, check whether or not a car is present.
+
+<b>Downside of this method is the computational cost...</b>
+
+### Convolutional Implementation of Sliding Windows
+[Sermanet et al 2014](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwjvgoe31OfqAhVSjeYKHci9AggQFjABegQIBRAB&url=https%3A%2F%2Farxiv.org%2Fpdf%2F1312.6229&usg=AOvVaw2GJRe3zN8ediGY43EnwTTL)
+* Converting FC layer to a convolutional operation: Take the filter size same as the image size and keep the number of filters same as the number of output layers required.
+* Instead of using providing only parts of the window into the conv net which classifies, what we can do is keep the whole image as the input image. This helps in sharing the computation.
+
+![conv_sliding](conv_sliding.png)
+
+* One problem is that it doesn't accurately give the bounding box.
+
+## YOLO algorithm:
+[YOLO Paper: Redmon et al 2015](https://arxiv.org/pdf/1506.02640)
+* Divide the image into 3x3 grid for example... (In practice Andrew uses 19x19 grid)
+* Define the target label for each grid similar to the object detection with localization method.
+* The object is associated to that grid cell where its midpoint lies.
+* In the end the CNN outputs a 3x3x8 output here(3x3 for the grids and 8 is the number of elements in the final vector. In short there is an output vector for each grid)
+* bx,by represent the coodrinates of the bounding box wrt the origin which is the top left corner of the grid to which the object belongs to and assuming that the lower right corner is (1,1)
+* bh,bw are the ratios wrt the lengths of the grid size. 
+* bx,by hence are in the range (0,1)
+* bh,bw can be greater than 1 if the bounding box is greater than the grid size. But these values are surely greater than 0.
+
+### Intersection over Union (IoU):
+* To judge how well our predicted bounding box is compared to the perfect bounding box, calculate the following quantity:  
+`IoU = area(intersection)/area(union)`
+* IoU greater than 0.5 is considered good.
+
+### Non-max suppression:
+* In many cases, there may be more than one grid which may associate itself to an object and thus propose a bounding box each. Hence there may be more than one bounding boxes for a single object.
+* To overcome this we do non max suppression:
+1. Remove all the boxes having p<=0.6
+2. Select the bounding box for an object which has the maximum value of p.
+3. Remove all the boxes having an IoU of more than 0.5 with this box.
+4. For multiple classes, run non max suppression for each class separately.
+
+### Anchor Boxes:
+* If the midpoint of two objects lie in the same grid, how do we detect both the boxes? This issue is solved using anchor boxes.
+* Predefine anchor box shapes
+* For example two anchor boxes may be a tall skinny one and a fat-wide one. 
+* Now since there are two anchor boxes (in this example) the final vector y has to be repeated one more time so that each pair of 8 components (8 here is in the example continuing from above) can be associated to a (grid,anchor box).
+* Each object is assigned to the grid cell with its midpt and to the anchor box with the highest IoU with the object's shape.
