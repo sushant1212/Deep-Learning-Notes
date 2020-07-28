@@ -306,9 +306,10 @@ Content cost and the style measure the similarity of the generated image and the
 ## Style cost function:
 * Take a layer of activations and then see how correlated are the layers.
 * Style matrix:
-
-<img src="images/style_cost_function">
+<img src="images/notation.png">
 
 * Continued
 
 <img src="images/style_cost_function(2)">
+
+* In the second slide, the cost function is defined involving different lambdas for different layers.
