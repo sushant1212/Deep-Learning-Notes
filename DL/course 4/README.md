@@ -244,3 +244,65 @@ bh, bw : Height and width of the bounding box
 * For example two anchor boxes may be a tall skinny one and a fat-wide one. 
 * Now since there are two anchor boxes (in this example) the final vector y has to be repeated one more time so that each pair of 8 components (8 here is in the example continuing from above) can be associated to a (grid,anchor box).
 * Each object is assigned to the grid cell with its midpt and to the anchor box with the highest IoU with the object's shape.
+
+## Face Recognition:
+* Face verification and Face recognition are two different things. Face verification means to verify whether or not the face belongs to the person who claims his identity. Face recognition involves going through a database of a lot of people and then find the match.
+
+### One Shot Learning:
+* Since DL algorithms cannot work well with just one training image of eaach person, it is not advisable to train a CNN for face recognition and then finally have a softmax classifier to classify who's image is it among the people in the database. One more disadvantage is that we would have to retrain the whole CNN if a member joins or leaves the organization.
+* So to overcome this, we define a **similarity function** which could tell the degree of how similar two images are.
+* `d(image1, image2) < T` where T is a hyperparameter.
+
+## Siamese Network:
+[Taigman et al., 2014 DeepFace](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiR7e7Ap-_qAhUzzzgGHWVGAtkQFjABegQIBRAB&url=https%3A%2F%2Fwww.cs.toronto.edu%2F~ranzato%2Fpublications%2Ftaigman_cvpr14.pdf&usg=AOvVaw0JGaJnxb26d5u_F23NrdLo&cshid=1595917391522355)
+
+* This basically encodes a person's image into say a 128 dimensional vector. That is, after going through many convolutional layers and fully connected layers, finally encoding a person's image into a 128 dimensional vector. 
+* So, there exists a 128 dimensional vector corresponding to a particular person in the database.
+* Now to find the similarity d, just find the **L2 norm** of the encodings of the persons.
+* If the distance is less then they are similar and vice versa.
+
+### Triplet Loss Function to train the Siamese Network
+[Schroff et al., 2015, FaceNet](https://arxiv.org/pdf/1503.03832
+A: Anchor  
+P: Positive  
+N: Negative  
+
+|| f(A) - f(P) ||^2  - || f(A) - f(N) ||^2 <= 0  
+The problem with this eqn is that the network may learn to keep f(x) = 0 or make f(x) a constant function so that this inequality is satisfied. To get over this problem we can introduce a margin term **epsilon** as well. Hence the eqn becomes:  
+`|| f(A) - f(P) ||^2  - || f(A) - f(N) ||^2 + epsilon <= 0`  
+where epsilon again is a hyperparameter.
+
+**Triplet loss function**:  
+
+` np.maximum(|| f(A) - f(P) ||^2  - || f(A) - f(N) ||^2 + epsilon , 0)`
+This is the triplet loss function. The overall cost function is the sum over all the triplets.
+If training set contains 10k examples of 1k person, we need to have ultiple pictures of a person to get the A,P pairs.
+
+**How to choose the (A,P,N) pairs**:  
+* One of the problems of random choosing is that getting the above constraint is quite simple so the algorithm doesn't need to do much to learn.
+* So to construct  the trianing set we have to make the triplets hard to train on. So d(A,P) is quite close to d(A,N).
+* The effect of choosing these triplets is that it increases the computational efficiency of the algorithm. Details are presented in the above paper of FaceNet.
+
+### Face verification and Binary classification:
+[Taigman et al., 2014](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiK_7nR0u_qAhV5wjgGHQ-9DooQFjABegQIAxAB&url=https%3A%2F%2Fwww.cs.toronto.edu%2F~ranzato%2Fpublications%2Ftaigman_cvpr14.pdf&usg=AOvVaw0JGaJnxb26d5u_F23NrdLo)  
+
+* Instead of taking triplets at a time, what we can do is that take the absolute difference between the encodings and have a logistic unit to classify whether it is a 0(different) or a 1(same).
+* Instead of absolute difference we also can have the chi-squared difference which is:  
+(f(xi(k)) - f(xj(k)))^2/(f(xi(k)) + f(xj(k)))
+
+## Neural style transfer:
+* To get an image look like an artwork.
+* Initial layers learn eges etc, whereas deeper layers learn to detect more and more complex features.
+
+### Cost Function:
+J = alpha * J(Content cost) + beta * J(Style cost). (alpha and beta are hyperparameters).
+Content cost and the style measure the similarity of the generated image and the content/style respectively.
+
+## Content Cost function:
+* Use a pre trained network like VGG net.
+* Choose a layer l not too shallow and not too deep as the layer which determines the cost.
+* Take L2 norm between the content and the generated image of the **activation** of layer.
+
+## Style cost function:
+* Take a laer of activations and then see how correlated are the layers.
+* Style matrix:
