@@ -59,7 +59,7 @@ To fix both of these problems we can **pad** the images by an additional layer o
 <br>
 
 ## Convolutional neural networks
-<img source="images/notation.png">
+<img src="images/notation.png">
 
 **Pay attention to the notation of A[l]**  
 **Note that the number of learnable parameters in a conv operation is independent of the input image size**
@@ -89,7 +89,7 @@ CONV(1 or 2), POOL, CONV(1 or 2), POOL, FC, FC, FC, Softmax.
 ## Some popular ConvNet architectures:
 * [LeNet-5](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwjPuoHpncXqAhUFeysKHRpyDmsQFjABegQIAxAB&url=http%3A%2F%2Fvision.stanford.edu%2Fcs598_spring07%2Fpapers%2FLecun98.pdf&usg=AOvVaw1r5QRjS6yPaYsenIJ6-SLm)
 
-<img source="images/LeNet-5.png">
+<img src="images/LeNet-5.png">
 
 
 * [Alex Net](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwiqgbLMgcXqAhVHfX0KHeKwDyoQFjAAegQIBRAB&url=https%3A%2F%2Fpapers.nips.cc%2Fpaper%2F4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf&usg=AOvVaw2hqjjvSjIpuuCLLdojAmS5)
@@ -99,7 +99,7 @@ CONV(1 or 2), POOL, CONV(1 or 2), POOL, FC, FC, FC, Softmax.
 
 * [VGG-16](https://arxiv.org/pdf/1409.1556.pdf%20http://arxiv.org/abs/1409.1556)
 
-<img source="images/VGG-16.png">
+<img src="images/VGG-16.png">
 
 * [Resnet](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjw9Z6i4cbqAhWDF3IKHY01Bz0QFjABegQIAhAB&url=https%3A%2F%2Farxiv.org%2Fpdf%2F1512.03385&usg=AOvVaw3vV99r-Ks0UEPt0ndF0YoP)
 
@@ -110,7 +110,7 @@ CONV(1 or 2), POOL, CONV(1 or 2), POOL, FC, FC, FC, Softmax.
 	<li>ResNets have a better graph of training error vs no.of layers as compared to the "plain" networks. </li>
 </ul>
 
-<img source="images/ResNet.png">
+<img src="images/ResNet.png">
 
 ## Why do Resnets work better?
 * Due to the g(W[l+2]a[l+1] + b[l+2] + a[l]). If we use L2 regularization, W tends to decay(weight decay). Let's assume that the weight and bias are 0. Hence ReLU of a[l] = a[l]. Hence this is like an identity function. The hidden units may learn something useful or just learn the identity function to not hurt the performance. 
@@ -127,7 +127,7 @@ CONV(1 or 2), POOL, CONV(1 or 2), POOL, FC, FC, FC, Softmax.
 * In 3D is found to be quite useful tool to add a bit of non linearity to the model, In the figure shown below, **after convolving the filter  a ReLU activation is applied**. It is similar to a fully connected layer. It is like multiplying a 32 dimensional vector with a 32 dimensional row vector and applying ReLU to get the output. The number of rows of the weights is the number of filters.
 * Also called network in network. 
 
-<img source="images/1x1.png">
+<img src="images/1x1.png">
 
 ### Using 1x1 convolutions:
 * We can use it to shrink the number of channels.
@@ -210,7 +210,7 @@ bh, bw : Height and width of the bounding box
 * Converting FC layer to a convolutional operation: Take the filter size same as the image size and keep the number of filters same as the number of output layers required.
 * Instead of using providing only parts of the window into the conv net which classifies, what we can do is keep the whole image as the input image. This helps in sharing the computation.
 
-<img source="images/conv_sliding.png">
+<img src="images/conv_sliding.png">
 
 * One problem is that it doesn't accurately give the bounding box.
 
