@@ -309,4 +309,4 @@ Content cost and the style measure the similarity of the generated image and the
 
 ![Style_cost_function](style_cost_function.png)
 
-![Style_cost_function](style_cost_function(2).png)
+
