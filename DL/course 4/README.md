@@ -308,6 +308,4 @@ Content cost and the style measure the similarity of the generated image and the
 * Style matrix:
 <img src="images/style_cost_ function.png">
 
-* Continued
-
-<img src="images/style_cost_function(2).png>
+<img src="images/style_cost_function(2).png">
