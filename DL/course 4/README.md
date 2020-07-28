@@ -304,10 +304,10 @@ Content cost and the style measure the similarity of the generated image and the
 * Take L2 norm between the content and the generated image of the **activation** of layer.
 
 ## Style cost function:
-* Take a laer of activations and then see how correlated are the layers.
+* Take a layer of activations and then see how correlated are the layers.
 Style matrix:
 
-<img src="./style_cost_function">
+<img src="images/style_cost_function">
 
 
-<img src="./style_cost_function(2)">
+<img src="images/style_cost_function(2)">
