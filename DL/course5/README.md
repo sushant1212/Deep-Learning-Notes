@@ -45,4 +45,4 @@
 
 ### Points to understand from the above slide
 * This slide shows about the short notation of RNNs.
-* Writing as Wa and as ["a<t-1>" , X(t)] has reduced the amount of calculation we have to write and has also vectorized the step.
+* Writing as Wa and as ["a&#60;t-1&#62;" , X(t)] has reduced the amount of calculation we have to write and has also vectorized the step.
