@@ -29,6 +29,7 @@
 <img src="images/RNN.png">
 
 ### Points to understand from the above slide
+**THESE SLIDES ARE FOR NAME ENTITY RECOGNITION**  
 * The RNN learns from the prev as well as form the current (word or vector). 
 * Since it only learns from the previous part, it may have diificulty in dealing with sentences in the lower half of the slide.
 * The diagram on the right is another way people depict RNNs in papers etc.
@@ -116,7 +117,7 @@
 * c&#60;t&#62; = a&#60;t&#62; here. But it's not the same always. In LSTMs it's different.
 
 * c&#60;t&#62; is called memory cell. c_telda&#60;t&#62; is a potential replacement of c&#60;t&#62;.
-* GAMMAu is called the Gate. Its value lies between 0 and 1 (obviously because if the sigmid). The value which comes out of the gate determines whether there needs to be change in the memory cell or not.
+* GAMMAu is called the Gate. Its value lies between 0 and 1 (obviously because if the sigmoid). The value which comes out of the gate determines whether there needs to be change in the memory cell or not.
 * The value of the c&#60;t&#62; is given by the third equation.
 * The pictorial summarization is given in the top-left side of the slide. Notice that these values of c&#60;t-1&#62; and GAMMAu determine the value of y_hat&#60;t&#62; and the value of c&#60;t&#62; which here is the value of a&#60;t&#62;.
 * All the quantities marked in red boxes have the same dimension.
@@ -142,3 +143,11 @@ there should be a  ' * ' sign instead of '+' in the 4th line.
 * LSTMs are usually preferred over GRUs, but are more computationally expensive.
 * Theoretically, there is no hard and fast rule that LSTMs are better than GRUs or vice versa.
 * **PEEPHOLE CONNECTION** is a variation of LSTMs, when the gates also include c&#60;t-1&#62; during its computation.
+
+## Bi-Directional RNNs:
+<img src="images/BRNN.png">
+* Not to be used for speech recogntion since you'll have to wait for the person to finish the whole sentence and then only we can predict the whole sentence.
+* BRNNs and LSTM can be combined and could make an effective model.
+
+## Deep RNNs:
+<img src="images/DeepRNN.png">
