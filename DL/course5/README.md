@@ -151,3 +151,39 @@ there should be a  ' * ' sign instead of '+' in the 4th line.
 
 ## Deep RNNs:
 <img src="images/DeepRNN.png">
+
+
+## Introduction to Word-Embeddings:
+* One hot representation of words has a downside that it is very diffficult for the algorithm to identify that two words are actualluy related, like apple and orange. 
+* One more reason for the algorithm to not be able to learn the relation is because the inner product of any two different words is 0.
+* One of the weaknesses of this representation is that it treats each word as a thing unto itself. 
+* As far as the learning algorithm knows the relationship between apple and orange is not any closer as the relationship between any of the other words man, woman, king, queen, and orange.
+And so, it's not easy for the learning algorithm to generalize from knowing that orange juice is a popular thing, to recognizing that apple juice might also be a popular thing or a popular phrase. And this is because the inner product between any two different one-hot vectors is zero. 
+* **Notation for one-hot** o_{position in vocab} , for example o_3473 represents the 3473rd word in the vocabulary.
+
+<img src="images/Word_Embeddings.png">
+
+* The high dimensional feature vector which we learn would not be easy to interpret.
+* One way to represent these word embedding is to convert the 300D vector into the 2D plane using t-SNE [van der maaten and hinton 2008](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwjln-qc1IXrAhXf6XMBHQkGDpcQFjABegQIBRAB&url=http%3A%2F%2Fwww.jmlr.org%2Fpapers%2Fvolume9%2Fvandermaaten08a%2Fvandermaaten08a.pdf&usg=AOvVaw11Jgz7vuRT-PbbxSHmn6F_)
+
+<img src="images/TransferLearning_WordEmbeddings.png">
+
+### Properties of Word Embeddings:
+* It can detect analogies like man:woman :: king:?
+* For doing this subtrace the word embedding vector of woman from man and all the other words from king,. Check which one is most **similar** to the difference b/w man and woman. Ideally this should lead to the word "Queen".
+
+<img src="iages/WE.png">
+
+<img src="images/cos_similarity.png">
+
+<img src="images/EmbeddingMatrix.png">
+
+## Learning Word Embeddings:
+* Complex algoriithms were proposed initially, but now really simpler algorithms can perform as well as the old ones.
+
+
+<img src="images/Bengio_NLModel.png">
+
+[Bengio et al, 2003](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwiom6zq-4XrAhU-8HMBHV3MDZcQFjABegQIARAB&url=http%3A%2F%2Fwww.jmlr.org%2Fpapers%2Fvolume3%2Fbengio03a%2Fbengio03a.pdf&usg=AOvVaw00AdtIWw9CJXd9m76XaIQh)
+
+<img src="images/Other_context-target_pairs.png">
