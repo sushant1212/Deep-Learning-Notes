@@ -170,9 +170,9 @@ And so, it's not easy for the learning algorithm to generalize from knowing that
 
 ### Properties of Word Embeddings:
 * It can detect analogies like man:woman :: king:?
-* For doing this subtrace the word embedding vector of woman from man and all the other words from king,. Check which one is most **similar** to the difference b/w man and woman. Ideally this should lead to the word "Queen".
+* For doing this subtract the word embedding vector of woman from man and all the other words from king,. Check which one is most **similar** to the difference b/w man and woman. Ideally this should lead to the word "Queen".
 
-<img src="iages/WE.png">
+<img src="images/WE.png">
 
 <img src="images/cos_similarity.png">
 
@@ -181,9 +181,49 @@ And so, it's not easy for the learning algorithm to generalize from knowing that
 ## Learning Word Embeddings:
 * Complex algoriithms were proposed initially, but now really simpler algorithms can perform as well as the old ones.
 
+* By learning content to target pairs we can learn the Matrix E whuch will store the embedding values for each word in the dictionary.
 
 <img src="images/Bengio_NLModel.png">
 
 [Bengio et al, 2003](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwiom6zq-4XrAhU-8HMBHV3MDZcQFjABegQIARAB&url=http%3A%2F%2Fwww.jmlr.org%2Fpapers%2Fvolume3%2Fbengio03a%2Fbengio03a.pdf&usg=AOvVaw00AdtIWw9CJXd9m76XaIQh)
 
 <img src="images/Other_context-target_pairs.png">
+
+### Word2Vec:
+* Given a context word, we want to predict the target word which lies say within a range of 10 words on either side of the context word.
+
+* We want to learn the mapping of context to target.
+
+<img src="images/w2v.png">
+
+* Problem with this model is that softmax is computationally heavy with increasing vocab sizes.
+
+* One way is to use hierachical softmax.
+	- In practice this tree may not be symmetric.
+
+* How to sample the context words:
+	- Uniform
+	- Some other heuristics are used. (refer the paper)
+
+[Mikolov et al 2013](https://arxiv.org/pdf/1301.3781)
+
+### Negative Sampling:
+* Method devised to overcome the coputationally heavy softmax unit.
+[Mikolov, 2013 et al](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwjq3ODa8orrAhVB63MBHUOgBQcQFjABegQIBRAB&url=https%3A%2F%2Fpapers.nips.cc%2Fpaper%2F5021-distributed-representations-of-words-and-phrases-and-their-compositionality.pdf&usg=AOvVaw3lEm7W86bi2fXnfFRBIz1j)
+
+<img src="images/Negative_Sampling.png">
+* Take a context word and then get a target word which is in the range (say 10 words).
+* Now sample "k", negative examples by picking out random words from the vocabulary, even though 1-2 words might lie in the range consider all these as negative examples. 
+* This is used to distinguish the distribution.
+* k = 5-20 smaller datatsets and 2-5 for larger datasets.
+
+* <b>Model</b>
+
+<img src="images/Model_NS.png">
+
+- Logistic Regression model. 
+- Instead of having a 10000 dim softmax, we have to only use a logisitc loss for the k -ve and the 1 positive example.
+- How to sample the -ve examples:
+	- Authors reported that f(wi)^(3/4)/(sum(f(wi)^(3/4)))
+	where f(wi) is the frequency of the occurence of the word.
+* Open source implementations are available so try to use tham.
