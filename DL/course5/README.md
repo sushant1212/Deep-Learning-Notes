@@ -239,3 +239,23 @@ And so, it's not easy for the learning algorithm to generalize from knowing that
 
 <img src="images/glove3.png">
 
+## Sentiment classification problem:
+
+* Even if we have a small dataset, we can still have a good learning algorithm if we have a word embedding.
+
+### Simple sentiment classification model:
+* Convert the words from one hot labels to word embeddings.
+* Now **average** all the word embeddings.
+* Feed it to the softmax classifier.
+* Algorithm works decently well. 
+* <b>Problems with this model is that it ignores the ordering of the review. For example if the review says that the food was not *good* and it can capture all the *goods* from the review and increase the rating.</b>
+
+<img src="images/sentiment1.png">
+
+<img src="images/sentiment2.png">
+
+* Even if some words are not present in the vocab and appear in the reviews, we may expect our RNN to overcome these words.
+
+<img src="images/debiasing.png">
+
+[bolukbasi et al. 2016](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwiulZPp54vrAhV26XMBHYkXCJwQFjABegQIBRAB&url=https%3A%2F%2Fpapers.nips.cc%2Fpaper%2F6228-man-is-to-computer-programmer-as-woman-is-to-homemaker-debiasing-word-embeddings.pdf&usg=AOvVaw1Qz9r959XanW5mJF50-ccm)
