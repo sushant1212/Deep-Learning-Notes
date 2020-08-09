@@ -212,6 +212,7 @@ And so, it's not easy for the learning algorithm to generalize from knowing that
 [Mikolov, 2013 et al](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwjq3ODa8orrAhVB63MBHUOgBQcQFjABegQIBRAB&url=https%3A%2F%2Fpapers.nips.cc%2Fpaper%2F5021-distributed-representations-of-words-and-phrases-and-their-compositionality.pdf&usg=AOvVaw3lEm7W86bi2fXnfFRBIz1j)
 
 <img src="images/Negative_Sampling.png">
+
 * Take a context word and then get a target word which is in the range (say 10 words).
 * Now sample "k", negative examples by picking out random words from the vocabulary, even though 1-2 words might lie in the range consider all these as negative examples. 
 * This is used to distinguish the distribution.
@@ -225,5 +226,16 @@ And so, it's not easy for the learning algorithm to generalize from knowing that
 - Instead of having a 10000 dim softmax, we have to only use a logisitc loss for the k -ve and the 1 positive example.
 - How to sample the -ve examples:
 	- Authors reported that f(wi)^(3/4)/(sum(f(wi)^(3/4)))
-	where f(wi) is the frequency of the occurence of the word.
+	where f(wi) is the frequency of the occurance of the word.
 * Open source implementations are available so try to use tham.
+
+### GloVe Model (Globalised Vectors for Word Representation)
+
+* [pennington et al. 2014](https://www.aclweb.org/anthology/D14-1162.pdf) 
+
+<img src="images/glove1.png">
+
+<img src="images/glove2.png">
+
+<img src="images/glove3.png">
+
