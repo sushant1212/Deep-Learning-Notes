@@ -259,3 +259,100 @@ And so, it's not easy for the learning algorithm to generalize from knowing that
 <img src="images/debiasing.png">
 
 [bolukbasi et al. 2016](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwiulZPp54vrAhV26XMBHYkXCJwQFjABegQIBRAB&url=https%3A%2F%2Fpapers.nips.cc%2Fpaper%2F6228-man-is-to-computer-programmer-as-woman-is-to-homemaker-debiasing-word-embeddings.pdf&usg=AOvVaw1Qz9r959XanW5mJF50-ccm)
+
+
+## Various Sequences to sequence architectures:
+
+<img src="images/Translation.png">
+
+* The left half of the network is called <b>ENCODER NETWORK</b> and the right half is known as the <b>DECODER NETWORK</b>.
+* The decoder gives output till maybe the EOS token.
+
+<img src="ImageCaptioning.png">
+
+
+## Picking the most likely sentence:
+
+* <img src="images/CLM.png">
+
+* <b>Points from the above slide</b>
+	* The decoder network looks like the Language Model.
+	* Instead of starting off with a vector of zeros it starts with an encoded sequence.
+	* Estimates the probability of ENglish translation given the French sentence.
+	* Given the input sentence we need the most likely translation. 
+* <b>We don't want to sample the words at random.</b> We need to maximise the probability.
+
+* <b>WHY NOT GREEDY SEARCH?</b>
+
+<img src="images/WNGS.png">
+
+* Points from the above slide:
+	* P(y1.y2.....,yTy | X) the <b>JOINT PROBABILITY</b> has to be maximised.
+
+* To overcome this we have to use search algorithms. The most common one is <b>beam search. </b>
+
+<img src="images/BS1.png">
+
+* B is the beam width which decides the top how much options we have to take.
+
+<img src="images/BS2.png">
+
+* 3 (beam width) of the best all the 30k outputs here are chosen. So suppose in the example here the best possible outputs are "in september", "jane is", "jane visits".
+
+* Repeat this process till you get the EOS token.
+
+<img src="BS3.png">
+
+* B=1 is nothing but the greedy search algorithm.
+
+### Refinements in Beam Search:
+
+#### Length Normalization
+
+<img src="images/LN.png">
+
+
+* We need to maximise the total joint probability that can be written as the product of numbers. Since probabilities are less than 1, hence the probability may tend to the numeric underflow which is like 0.0000000000000000000000000001 type numbers which may exceed the floating point value.
+
+* To overcome this we use the log probability and hence product is converted to sum.
+
+* Another thing to note is that more the length of the sentence the final objective function would become smaller. This means that this optimization objective would undesirably prefer smaller sentences over larger sentences.
+
+* To rectify this we divide it by Ty or Ty^alpha where alpha is something like 0.7
+
+* alpha is a hyperparameter which you may tune.
+
+* Decide the top 'beam-width' probabilities which maximise this normalized log probabilty
+
+### How to choose B:
+* Larger B more computation, but looks at more possibilities.
+* Smaller B worse result but it's faster.
+
+## Error Analysis in Beam Search:
+
+<img src="images/EA1.png">
+
+<img src="images/EA2.png">
+
+* See where more error is, whether the beam search or the RNN. If most of the errors are due to the beam search then go ahead with tuning the beam width. Else go about improving the RNN maybe by using the error analysis techniques from course 3, getting more training data, regularization, improving the architecture.
+
+## Bleu (Bilingual evaluation understudy) Score:
+
+<img src="images/bleu1.png">
+
+* There may be equally good sentences, how to measure get the sense of which one is better.
+
+* Given a machine translation (MT), it calculates a metric on how good the algorithm is.
+
+* Human generated sequences are a part of the dev/test set.
+
+* To measure the precision:   
+
+`count_clip / count`
+
+<img src="images/bleu2.png">
+
+<img src="images/bleu3.png">
+
+<img src="images/bleu4.png">
+
