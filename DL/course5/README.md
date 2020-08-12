@@ -304,7 +304,7 @@ And so, it's not easy for the learning algorithm to generalize from knowing that
 
 * Repeat this process till you get the EOS token.
 
-<img src="BS3.png">
+<img src="images/BS3.png">
 
 * B=1 is nothing but the greedy search algorithm.
 
