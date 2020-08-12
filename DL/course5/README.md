@@ -133,11 +133,13 @@ there should be a  ' * ' sign instead of '+' in the 4th line.
 
 ### Long Short Term Memory units (LSTMs):
 <img src="images/LSTM.png">
+
 * First point is to note that c&#60;t&#62; is not same as a&#60;t&#62; and hence in the gates also the equations are different than before.
 * There are three gates in this unit, and hence the complexity is more than GRUs. 
 * Instead of the 1-GAMMA_u in GRUs, We have the forget gate here. And also since c and a aren't the same there is an output gate to compute a from c.
 
 <img src="images/LSTM_in_pics.png">
+
 * One main thing to be noted is the red line in the bottom figures which shows the memory and how the LSTM can use this memory in the future very easily. Also it also shows how easy it is for the network to learn to retain the memory or change it accordingly.
 
 * LSTMs are usually preferred over GRUs, but are more computationally expensive.
@@ -146,12 +148,13 @@ there should be a  ' * ' sign instead of '+' in the 4th line.
 
 ## Bi-Directional RNNs:
 <img src="images/BRNN.png">
+
 * Not to be used for speech recogntion since you'll have to wait for the person to finish the whole sentence and then only we can predict the whole sentence.
 * BRNNs and LSTM can be combined and could make an effective model.
+* TO SEE HOW TO IMPLEMENT LOOK AT THE ATTENTION MODEL PART GIVEN IN THE END.
 
 ## Deep RNNs:
 <img src="images/DeepRNN.png">
-
 
 ## Introduction to Word-Embeddings:
 * One hot representation of words has a downside that it is very diffficult for the algorithm to identify that two words are actualluy related, like apple and orange. 
@@ -356,3 +359,71 @@ And so, it's not easy for the learning algorithm to generalize from knowing that
 
 <img src="images/bleu4.png">
 
+## Attention Model Intuition:
+
+* [Bahdanau et al 2014](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwic9uGI8pTrAhXBeisKHXDXCrMQFjABegQIBRAB&url=https%3A%2F%2Farxiv.org%2Fpdf%2F1409.0473&usg=AOvVaw19lTrMFVgS_zQwfImTTtu8)
+
+### Need for attention models:
+
+* In the machine translation tasks, for very long sentences, the encoder part would have to encode the whole sentence and then the decoder would have to decode from it, thus making the RNN to memorize the whole sentence before it translates it.
+* What a human translator would do is read the first part and generate a few words and then proceed likewise without having to memorize the whole sentence.
+* The bleu score thus decreases with the sentence length.
+
+<img src="images/AttentionModelIntuition.png">
+
+* A different RNN is used to generate the English translation.
+
+* This model computes the "Attention Weights" which determines the amount of attention the model needs to pay to which part of the sentences.
+
+* The attention weights depend on the forward and backward activations of the bi-directional RNN, and also on the activation from the previous step.
+
+* This is just the intuition, the details are given in the next topic below.
+
+<img src="images/AttentionModelIntuition2.png">
+
+## Attention Model:
+
+<img src="images/AM1.png">
+
+* For the Bi directional RNN, mostly LSTMs are used.
+* &#60;at&#62; are is defined as the concatenation of the forward and backward activations.
+* Now we have a forward only single direction RNN which has an input a context c and the prev time step.
+* c depends on the **attention weights**. The value of c is given by the weighted sum of the activation weights with the corresponding concatenated activations from the bi directional RNN.
+* One property of the attention weights is that their sum is always 1, which is because of the softmax being done.(explained in detail below)
+* In the notation, t' is for the bi directional RNN's time steps, while t is for the other RNN.
+* Mathematically, alpha&#60;t,t'&#62; is the attention that y&#60;t&#62; needs to pay on a&#60;t'&#62;.
+
+### How to compute the attention weights:
+
+<img src="images/AM2.png">
+
+* The model learns the attention weights from gradient descent process.
+* Downside of this is the computation, which runs in quadraric cost.
+* This idea can also be applied to image captioning. By using this attention model, we can pay attention to look at parts of pictures.
+
+## Speech Recognition : Audio Data
+
+* Earlier linguists used to make phonemes out of the speech data.
+* But with end to end deep learning phoneme representation is not needed. One of the things that made this possible is because of moving to larger datasets. Best commercial systems are trained on 10000hr data etc.
+* Most common way to create features is the spectrogram features which is the intensity of each frequency plotted against time.
+
+### Attention model for speech recognition:
+
+<img src="images/SR_AM.png">
+
+* Horizontal axis contains different time steps for the audio input. And the attention model outputs the value.
+
+### Connectionist temporal classification:
+
+<img src="images/CTC.png">
+
+* [Graves et al 2006](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjOtpLCspXrAhUSILcAHUe3CiwQFjABegQIBRAB&url=https%3A%2F%2Fwww.cs.toronto.edu%2F~graves%2Ficml_2006.pdf&usg=AOvVaw2-0RM4gBsNV9tHM1ku_gZU)
+* Usually a deeper model and bi directional RNN model using LSTMs is used.
+* Collapse repeated characters not separated by blanks.
+* Space has a character too.
+* So even if there are only 19 charcters in the sentence and the RNN is force to output 1000 characters, it would fill the rest of the cahracters with blanks.
+
+## Trigger word detection:
+<img src="images/trigger.png">
+
+* Instead of a singe 1 when the trigger word is spoken, what we can do is to make it output a few more 1s in the following time steps so as to keep the ratio of 0s and 1s a bit more uniform. Andrew said that this is just a hack so that we could train more easily.
